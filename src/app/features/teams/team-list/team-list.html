@@ -1,0 +1,21 @@
+<div class="page">
+  <header class="page-head">
+    <h1>Teams</h1>
+    <p class="sub">All qualified squads, ranked by FIFA rating.</p>
+  </header>
+
+  <div class="grid">
+    @for (t of teams; track t.code) {
+      <a class="team-tile" [routerLink]="['/teams', t.code]">
+        <span class="flag">{{ t.flag }}</span>
+        <div class="name">{{ t.name }}</div>
+        <div class="meta">Rank #{{ t.rank }} · Group {{ t.group }}</div>
+        <div class="form">
+          @for (r of t.form; track $index) {
+            <span [class]="r">{{ r }}</span>
+          }
+        </div>
+      </a>
+    }
+  </div>
+</div>

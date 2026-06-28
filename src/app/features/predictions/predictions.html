@@ -1,0 +1,21 @@
+<div class="page">
+  <header class="page-head">
+    <h1>Predictions</h1>
+    <p class="sub">Analyst consensus for {{ match().home.name }} vs {{ match().away.name }}</p>
+  </header>
+
+  <section class="winprob-card">
+    @for (row of [
+      { label: match().home.name, value: match().winProb[0], color: 'var(--green)' },
+      { label: 'Draw', value: match().winProb[1], color: '#fff' },
+      { label: match().away.name, value: match().winProb[2], color: 'var(--red)' }
+    ]; track row.label) {
+      <div class="prob-row">
+        <span>{{ row.label }}</span>
+        <div class="bar"><span [style.width.%]="row.value" [style.background]="row.color"></span></div>
+        <span>{{ row.value }}%</span>
+      </div>
+    }
+    <button class="btn full">Place Prediction</button>
+  </section>
+</div>

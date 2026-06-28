@@ -1,0 +1,23 @@
+:host { display: block; }
+.page { padding: 24px; }
+.page-head { margin-bottom: 20px; h1 { margin: 0 0 4px; } .sub { color: var(--text-dim); margin: 0; } }
+
+.winprob-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  max-width: 480px;
+}
+.prob-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 50px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  .bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; span { display: block; height: 100%; } }
+}
+.btn.full { width: 100%; margin-top: 8px; background: var(--green-dim); color: var(--green); border: 1px solid var(--green); padding: 12px; border-radius: 8px; font-weight: 700; }
+
+@media (max-width: 860px) { .page { padding: 16px; } }

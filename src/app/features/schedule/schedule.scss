@@ -1,0 +1,23 @@
+:host { display: block; }
+.page { padding: 24px; display: flex; flex-direction: column; gap: 22px; }
+.page-head { h1 { margin: 0 0 4px; } .sub { color: var(--text-dim); margin: 0; } }
+.block h3 { margin: 0 0 10px; color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.fixture {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  .time { font-family: var(--mono); color: var(--yellow); width: 50px; }
+  .vs { color: var(--text-dim); }
+  .score { font-family: var(--mono); font-weight: 700; }
+  .stadium { margin-left: auto; color: var(--text-dim); font-size: 0.78rem; }
+}
+@media (max-width: 860px) {
+  .page { padding: 16px; }
+  .fixture { flex-wrap: wrap; }
+}

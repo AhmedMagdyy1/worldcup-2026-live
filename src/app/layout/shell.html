@@ -1,0 +1,57 @@
+<header class="topbar">
+  <a class="brand" routerLink="/live">WORLD CUP 2026 <span>LIVE</span></a>
+
+  <nav class="topnav">
+    @for (item of topNav; track item.path) {
+      <a [routerLink]="item.path" routerLinkActive="active">{{ item.label }}</a>
+    }
+  </nav>
+
+  <div class="topbar-actions">
+    <div class="search">
+      <span>⌕</span>
+      <input type="text" placeholder="Search data…" />
+    </div>
+    <button class="icon-btn" aria-label="notifications">🔔</button>
+    <button class="icon-btn" aria-label="profile">◉</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="analyst-card">
+      <div class="avatar">👤</div>
+      <div>
+        <div class="name">Pro Analyst</div>
+        <div class="tier">Premium Tier</div>
+      </div>
+    </div>
+
+    <nav class="side-nav">
+      @for (item of sideNav; track item.path) {
+        <a [routerLink]="item.path" routerLinkActive="active">
+          <span class="icon">{{ item.icon }}</span>{{ item.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="upgrade">Upgrade to VIP</button>
+      <a routerLink="/settings" class="muted-link">Help</a>
+      <a routerLink="/live" class="muted-link">Logout</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  @for (item of bottomNav; track item.path) {
+    <a [routerLink]="item.path" routerLinkActive="active">
+      <span class="icon">{{ item.icon }}</span>
+      <span class="label">{{ item.label }}</span>
+    </a>
+  }
+</nav>

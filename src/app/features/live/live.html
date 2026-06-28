@@ -1,0 +1,186 @@
+<div class="page">
+  <header class="page-head desktop-only">
+    <div>
+      <h1>Match Center</h1>
+      <p class="sub">Wednesday, June 10, 2026</p>
+    </div>
+    <div class="head-actions">
+      <button class="btn">Filters</button>
+      <button class="btn">📅 Schedule</button>
+    </div>
+  </header>
+
+  <div class="mobile-only live-tag">
+    <span class="dot"></span> LIVE • {{ match().minute }}'
+    <span class="meta">{{ match().group.toUpperCase() }} • MATCHDAY 2</span>
+  </div>
+
+  <section class="scoreboard">
+    <span class="live-pill desktop-only">LIVE • {{ match().minute }}'</span>
+
+    <div class="team">
+      <div class="flag">{{ match().home.flag }}</div>
+      <div class="tname">{{ match().home.name }}</div>
+      <div class="tmeta">Group {{ match().home.group }} • Rank #{{ match().home.rank }}</div>
+    </div>
+
+    <div class="score">
+      <span>{{ match().homeScore }}</span>
+      <span class="colon">:</span>
+      <span>{{ match().awayScore }}</span>
+      <div class="xg-row mobile-only">XG {{ match().stats.xg[0] }} – XG {{ match().stats.xg[1] }}</div>
+    </div>
+
+    <div class="team">
+      <div class="flag">{{ match().away.flag }}</div>
+      <div class="tname">{{ match().away.name }}</div>
+      <div class="tmeta">Group {{ match().away.group }} • Rank #{{ match().away.rank }}</div>
+    </div>
+
+    <div class="match-meta desktop-only">
+      <span>Stadium: {{ match().stadium }}</span>
+      <span class="divider">|</span>
+      <span>Crowd: {{ match().crowd | number }}</span>
+    </div>
+  </section>
+
+  <nav class="tabs mobile-only">
+    <button [class.active]="tab() === 'timeline'" (click)="setTab('timeline')">Timeline</button>
+    <button [class.active]="tab() === 'lineups'" (click)="setTab('lineups')">Lineups</button>
+    <button [class.active]="tab() === 'stats'" (click)="setTab('stats')">Stats</button>
+  </nav>
+
+  <div class="grid">
+    <div class="main-col">
+      <section class="stats-row" [class.tab-panel]="true" [class.hidden-mobile]="tab() !== 'stats'">
+        <div class="stat-card">
+          <div class="stat-head">Possession <span>⊙</span></div>
+          <div class="stat-value">{{ match().stats.possession[0] }}% <small>{{ match().home.code }}</small></div>
+          <div class="bar"><span [style.width.%]="match().stats.possession[0]"></span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-head">Shots on Target <span>◎</span></div>
+          <div class="stat-value split">
+            <span>{{ match().stats.shotsOnTarget[0] }} <small>{{ match().home.code }}</small></span>
+            <span>{{ match().stats.shotsOnTarget[1] }} <small>{{ match().away.code }}</small></span>
+          </div>
+          <div class="dots">
+            @for (i of [1,2,3,4,5,6]; track i) {
+              <span [class.on]="i <= match().stats.shotsOnTarget[0]"></span>
+            }
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-head">Expected Goals (xG) <span>📈</span></div>
+          <div class="stat-value">{{ match().stats.xg[0] }} <small>vs {{ match().stats.xg[1] }}</small></div>
+          <div class="bar blue"><span [style.width.%]="(match().stats.xg[0] / (match().stats.xg[0] + match().stats.xg[1])) * 100"></span></div>
+        </div>
+      </section>
+
+      <section class="lineups tab-panel" [class.hidden-mobile]="tab() !== 'lineups'">
+        <div class="panel-head">
+          <h3>Tactical Lineups</h3>
+          <div class="formation-toggle">
+            <button [class.active]="formation() === '4-3-3'" (click)="formation.set('4-3-3')">4-3-3</button>
+            <button [class.active]="formation() === '3-5-2'" (click)="formation.set('3-5-2')">3-5-2</button>
+          </div>
+        </div>
+        <div class="pitch">
+          @for (row of lineup433; track $index) {
+            <div class="pitch-row">
+              @for (n of row; track n) {
+                <span class="player">{{ n }}</span>
+              }
+            </div>
+          }
+        </div>
+      </section>
+    </div>
+
+    <aside class="side-col">
+      <section class="timeline tab-panel" [class.hidden-mobile]="tab() !== 'timeline'">
+        <div class="panel-head">
+          <h3>Match Timeline</h3>
+          <span class="badge desktop-only">LIVE TRACKING</span>
+        </div>
+        <ul>
+          @for (ev of match().timeline; track $index) {
+            <li>
+              <span class="minute">{{ ev.minute }}</span>
+              <div class="ev-body">
+                <span class="ev-tag" [class]="ev.type">
+                  {{ ev.type === 'goal' ? '⚽ GOAL' : ev.type === 'card' ? '🟥 CARD' : ev.type === 'sub' ? '↻ SUB' : '⏱' }}
+                </span>
+                <div class="ev-title">{{ ev.title }}</div>
+                @if (ev.detail) { <div class="ev-detail">{{ ev.detail }}</div> }
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+
+      <section class="analysis desktop-only">
+        <h3>Analysis Stream</h3>
+        <div class="ai-msg">
+          <div class="ai-head"><span>🤖</span> Match Analyst AI <small>2m ago</small></div>
+          <p>"{{ match().home.name }}'s pressing intensity has increased by 15% in the last 10 minutes. {{ match().away.name }} is struggling to build from the back."</p>
+        </div>
+        <div class="winprob">
+          <span>📊 Win Probability</span>
+          <div class="bar">
+            <span [style.width.%]="match().winProb[0]"></span>
+          </div>
+          <small>{{ match().winProb[0] }}% {{ match().home.code }}</small>
+        </div>
+      </section>
+
+      <section class="winprob-card mobile-only">
+        <h3>Win Probability</h3>
+        <p class="sub">Analyst consensus</p>
+        @for (row of [
+          { label: match().home.name, value: match().winProb[0], color: 'var(--green)' },
+          { label: 'Draw', value: match().winProb[1], color: '#fff' },
+          { label: match().away.name, value: match().winProb[2], color: 'var(--red)' }
+        ]; track row.label) {
+          <div class="prob-row">
+            <span>{{ row.label }}</span>
+            <div class="bar"><span [style.width.%]="row.value" [style.background]="row.color"></span></div>
+            <span>{{ row.value }}%</span>
+          </div>
+        }
+      </section>
+
+      <section class="upcoming desktop-only">
+        <div class="panel-head"><h3>Upcoming Today</h3></div>
+        @for (m of upcoming; track m.id) {
+          <div class="fixture">
+            <div class="fixture-time">{{ m.kickoff }}<small>{{ m.group }}</small></div>
+            <div class="fixture-teams">
+              <span>{{ m.home.flag }} {{ m.home.name }}</span>
+              <span class="vs">vs</span>
+              <span>{{ m.away.name }} {{ m.away.flag }}</span>
+            </div>
+          </div>
+        }
+      </section>
+
+      <section class="standing-mini desktop-only">
+        <div class="panel-head"><h3>Group A Standings</h3></div>
+        <table>
+          <thead><tr><th>Pos</th><th>Team</th><th>P</th><th>GD</th><th>Pts</th></tr></thead>
+          <tbody>
+            @for (row of groupA.rows; track row.team.code) {
+              <tr>
+                <td>{{ row.pos }}</td>
+                <td>{{ row.team.flag }} {{ row.team.code }}</td>
+                <td>{{ row.played }}</td>
+                <td [class.pos]="row.gd > 0" [class.neg]="row.gd < 0">{{ row.gd > 0 ? '+' : '' }}{{ row.gd }}</td>
+                <td>{{ row.pts }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </section>
+    </aside>
+  </div>
+</div>

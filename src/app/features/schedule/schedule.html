@@ -1,0 +1,31 @@
+<div class="page">
+  <header class="page-head">
+    <h1>Schedule</h1>
+    <p class="sub">Upcoming and completed fixtures.</p>
+  </header>
+
+  <section class="block">
+    <h3>Upcoming Today</h3>
+    @for (m of upcoming; track m.id) {
+      <div class="fixture">
+        <span class="time">{{ m.kickoff }}</span>
+        <span>{{ m.home.flag }} {{ m.home.name }}</span>
+        <span class="vs">vs</span>
+        <span>{{ m.away.name }} {{ m.away.flag }}</span>
+        <span class="stadium">{{ m.stadium }}</span>
+      </div>
+    }
+  </section>
+
+  <section class="block">
+    <h3>Completed</h3>
+    @for (m of completed; track m.id) {
+      <div class="fixture">
+        <span class="time">FT</span>
+        <span>{{ m.home.flag }} {{ m.home.name }}</span>
+        <span class="score">{{ m.homeScore }} - {{ m.awayScore }}</span>
+        <span>{{ m.away.name }} {{ m.away.flag }}</span>
+      </div>
+    }
+  </section>
+</div>

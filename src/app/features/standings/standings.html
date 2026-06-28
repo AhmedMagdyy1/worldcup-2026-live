@@ -1,0 +1,63 @@
+<div class="page">
+  <header class="page-head desktop-only">
+    <div>
+      <h1>Group Stage Standings</h1>
+      <p class="sub">Real-time data stream for all tournament groups A-H.</p>
+    </div>
+    <div class="head-actions">
+      <button class="chip" [class.active]="filter() === 'all'" (click)="filter.set('all')">All Groups</button>
+      <button class="chip" [class.active]="filter() === 'ad'" (click)="filter.set('ad')">A - D</button>
+      <button class="chip" [class.active]="filter() === 'eh'" (click)="filter.set('eh')">E - H</button>
+      <button class="btn">⏳ Filter</button>
+    </div>
+  </header>
+
+  <header class="mobile-head mobile-only">
+    <h1>Standings</h1>
+  </header>
+
+  <div class="groups">
+    @for (g of groups; track g.name) {
+      <section class="group-card">
+        <div class="group-head">
+          <h3>{{ g.name }}</h3>
+          <span class="badge">{{ g.status }}</span>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Team</th><th>P</th><th>GD</th><th>Pts</th></tr>
+          </thead>
+          <tbody>
+            @for (row of g.rows; track row.team.code) {
+              <tr [class.lead]="row.pos === 1">
+                <td class="team-cell">{{ row.team.flag }} {{ row.team.name }}</td>
+                <td>{{ row.played }}</td>
+                <td [class.pos]="row.gd > 0" [class.neg]="row.gd < 0">{{ row.gd > 0 ? '+' : '' }}{{ row.gd }}</td>
+                <td>{{ row.pts }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <section class="analytics-card desktop-only">
+      <span class="badge-label">📈 ADVANCED ANALYTICS</span>
+      <h2>Probability of Round of 16 Qualification</h2>
+      <p>Current group metrics and ELO-based simulations suggest a 98.4% lock for current leaders across Group A-C.</p>
+      <div class="stat-grid">
+        <div><span class="green">99.2%</span><small>TOP PICK · USA</small></div>
+        <div><span class="yellow">82.5%</span><small>RISING · Mexico</small></div>
+        <div><span class="orange">44.1%</span><small>CONTESTED · Germany</small></div>
+        <div><span class="red">0.4%</span><small>OUT · Ghana</small></div>
+      </div>
+    </section>
+
+    <section class="sim-card desktop-only">
+      <div class="sim-box"></div>
+      <h4>Simulating Scenarios…</h4>
+      <p class="sub">Next update in 04:59</p>
+      <button class="btn full">View Full Model</button>
+    </section>
+  </div>
+</div>

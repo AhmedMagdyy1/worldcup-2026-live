@@ -1,0 +1,31 @@
+:host { display: block; }
+.page-head { margin-bottom: 20px; padding: 16px; h1 { margin: 0 0 4px; } .sub { color: var(--text-dim); margin: 0; } }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+  padding: 0 16px 16px;
+}
+
+.team-tile {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  text-align: center;
+  transition: border-color 0.15s;
+  &:hover { border-color: var(--green); }
+  .flag { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+  .name { font-weight: 700; }
+  .meta { color: var(--text-dim); font-size: 0.78rem; margin-top: 2px; }
+  .form { display: flex; justify-content: center; gap: 4px; margin-top: 10px;
+    span {
+      width: 18px; height: 18px; border-radius: 50%; font-size: 0.62rem;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+      &.W { background: var(--green-dim); color: var(--green); }
+      &.D { background: #3a3415; color: var(--yellow); }
+      &.L { background: #401b1f; color: var(--red); }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<div class="page">
+  <a routerLink="/teams" class="back desktop-only">← All Teams</a>
+
+  <section class="hero">
+    <div class="flag-big">{{ team.flag }}</div>
+    <div>
+      <span class="conf">CONMEBOL</span>
+      <h1>{{ team.name }}</h1>
+    </div>
+  </section>
+
+  <section class="meta-row">
+    <div><span class="label">FIFA RANK</span><span class="value">#{{ team.rank }}</span></div>
+    <div><span class="label">GROUP</span><span class="value">{{ team.group }}</span></div>
+    <div>
+      <span class="label">FORM</span>
+      <span class="form">
+        @for (r of team.form; track $index) {
+          <span [class]="r">{{ r }}</span>
+        }
+      </span>
+    </div>
+    <div class="actions desktop-only">
+      <button class="btn">☆ Follow</button>
+      <button class="btn primary">↗ Analyze</button>
+    </div>
+  </section>
+
+  <section class="squad">
+    <div class="panel-head">
+      <h3>👥 Squad List</h3>
+      <div class="pos-filter">
+        @for (p of positions; track p) {
+          <button [class.active]="posFilter() === p" (click)="posFilter.set(p)">{{ p }}</button>
+        }
+      </div>
+    </div>
+
+    <div class="player-list">
+      @for (p of filteredSquad; track p.number) {
+        <div class="player-row">
+          <span class="num">{{ p.number }}</span>
+          <div class="info">
+            <div class="name">{{ p.name }}</div>
+            <div class="sub">{{ p.position }} · {{ p.club }}</div>
+          </div>
+          <div class="rating">{{ p.rating }}<small>Rating</small></div>
+        </div>
+      }
+    </div>
+
+    <button class="btn full">Full Squad Depth Chart →</button>
+  </section>
+
+  <section class="insight">
+    <span class="label">PRO ANALYST INSIGHT</span>
+    <p>Probability of reaching the Final</p>
+    <div class="prob">62.4% <span class="up">↗ +2.1%</span></div>
+    <div class="bar"><span style="width: 62.4%"></span></div>
+  </section>
+</div>

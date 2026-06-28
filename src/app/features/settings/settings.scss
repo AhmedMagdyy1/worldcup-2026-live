@@ -1,0 +1,10 @@
+:host { display: block; }
+.page { padding: 24px; }
+.page-head { margin-bottom: 20px; h1 { margin: 0 0 4px; } .sub { color: var(--text-dim); margin: 0; } }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); max-width: 480px; }
+.row { display: flex; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 0.9rem;
+  &:last-child { border-bottom: none; }
+  span { color: var(--text-dim); }
+  .green { color: var(--green); }
+}
+@media (max-width: 860px) { .page { padding: 16px; } }
