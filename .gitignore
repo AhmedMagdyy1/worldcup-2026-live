@@ -44,3 +44,7 @@ __screenshots__/
 Thumbs.db
 .superpowers/
 .superpowers/
+
+# local design/planning artifacts
+stitch_world_cup_insights_dashboard/
+docs/superpowers/
