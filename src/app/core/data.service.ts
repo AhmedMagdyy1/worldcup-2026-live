@@ -507,39 +507,27 @@ const players: Record<string, Player[]> = {
 export class DataService {
   private readonly api = inject(ApiService);
   readonly liveMatch = signal<Match>({
-    id: 'mex-ita',
-    group: 'Group C',
-    stadium: 'Aztec Arena',
-    crowd: 87500,
-    kickoff: '20:00 EST',
-    status: 'live',
-    minute: 74,
-    home: teams['MEX'],
-    away: teams['ITA'],
-    homeScore: 2,
-    awayScore: 1,
-    stats: { possession: [54, 46], shotsOnTarget: [6, 4], xg: [1.84, 1.12], shots: [12, 8] },
-    winProb: [72, 18, 10],
-    timeline: [
-      { minute: '74\'', type: 'card', team: 'away', title: 'Red Card · L. Bonucci', detail: 'Dangerous foul on H. Lozano' },
-      { minute: '62\'', type: 'goal', team: 'home', title: 'Goal Mexico! Santiago Giménez', detail: 'Assist by Edson Álvarez' },
-      { minute: '55\'', type: 'sub', team: 'away', title: 'Substitution (ITA)', detail: 'Retegui ↓  Scamacca ↑' },
-      { minute: 'HT', type: 'half', team: 'home', title: 'Half Time Whistle', detail: '' },
-      { minute: '42\'', type: 'card', team: 'away', title: 'Yellow Card · Nicolò Barella', detail: 'Foul on Edson Álvarez' },
-      { minute: '31\'', type: 'goal', team: 'away', title: 'Goal! Federico Chiesa', detail: 'Solo effort after counter-attack' },
-    ],
+    id: 'por-esp',
+    group: 'Round of 16',
+    stadium: 'AT&T Stadium, Arlington TX',
+    crowd: 80000,
+    kickoff: '3:00 PM ET',
+    status: 'upcoming',
+    minute: 0,
+    home: teams['POR'],
+    away: teams['ESP'],
+    homeScore: 0,
+    awayScore: 0,
+    stats: { possession: [50, 50], shotsOnTarget: [0, 0], xg: [0, 0], shots: [0, 0] },
+    winProb: [35, 28, 37],
+    timeline: [],
   });
 
   readonly upcomingToday: Match[] = [
     {
-      id: 'usa-jpn', group: 'Group B', stadium: 'Sofi Stadium, LA', kickoff: '18:00', status: 'upcoming',
-      home: teams['USA'], away: teams['JPN'], homeScore: 0, awayScore: 0,
-      stats: { possession: [50, 50], shotsOnTarget: [0, 0], xg: [0, 0], shots: [0, 0] }, winProb: [40, 30, 30], timeline: [],
-    },
-    {
-      id: 'bra-fra', group: 'Group C', stadium: 'MetLife Stadium, NY', kickoff: '21:00', status: 'upcoming',
-      home: teams['BRA'], away: teams['FRA'], homeScore: 0, awayScore: 0,
-      stats: { possession: [50, 50], shotsOnTarget: [0, 0], xg: [0, 0], shots: [0, 0] }, winProb: [38, 24, 38], timeline: [],
+      id: 'usa-bel', group: 'Round of 16', stadium: 'Lumen Field, Seattle WA', kickoff: '8:00 PM ET', status: 'upcoming',
+      home: teams['USA'], away: teams['BEL'], homeScore: 0, awayScore: 0,
+      stats: { possession: [50, 50], shotsOnTarget: [0, 0], xg: [0, 0], shots: [0, 0] }, winProb: [42, 26, 32], timeline: [],
     },
   ];
 
