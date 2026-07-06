@@ -1,0 +1,82 @@
+<div class="compare-page">
+  <h1 class="page-title">Team Comparison</h1>
+
+  <div class="selectors">
+    <div class="selector-col">
+      <select class="team-select" (change)="onSelectA($event)">
+        <option value="">Select Team A</option>
+        @for (team of teams; track team.code) {
+          <option [value]="team.code">{{ team.flag }} {{ team.name }}</option>
+        }
+      </select>
+      @if (teamA()) {
+        <div class="team-identity">
+          <span class="team-flag">{{ teamA()!.flag }}</span>
+          <span class="team-name">{{ teamA()!.name }}</span>
+          <span class="team-group">Group {{ teamA()!.group }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="vs-badge">vs</div>
+
+    <div class="selector-col">
+      <select class="team-select" (change)="onSelectB($event)">
+        <option value="">Select Team B</option>
+        @for (team of teams; track team.code) {
+          <option [value]="team.code">{{ team.flag }} {{ team.name }}</option>
+        }
+      </select>
+      @if (teamB()) {
+        <div class="team-identity">
+          <span class="team-flag">{{ teamB()!.flag }}</span>
+          <span class="team-name">{{ teamB()!.name }}</span>
+          <span class="team-group">Group {{ teamB()!.group }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (!ready()) {
+    <div class="empty-state">
+      <span class="empty-icon">⚖️</span>
+      <p>Select two teams to compare</p>
+    </div>
+  }
+
+  @if (ready()) {
+    <div class="stats-table">
+      @for (row of statsRows(); track row.label) {
+        <div class="stat-row">
+          <div class="stat-cell" [class.winner]="row.aWins">
+            {{ row.aValue }}
+          </div>
+          <div class="stat-label">{{ row.label }}</div>
+          <div class="stat-cell right" [class.winner]="row.bWins">
+            {{ row.bValue }}
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="form-section">
+      <div class="form-col">
+        <div class="form-label">Form</div>
+        <div class="form-badges">
+          @for (result of teamA()!.form; track $index) {
+            <span class="form-badge" [class]="'form-' + result">{{ result }}</span>
+          }
+        </div>
+      </div>
+      <div class="form-spacer"></div>
+      <div class="form-col right">
+        <div class="form-label">Form</div>
+        <div class="form-badges">
+          @for (result of teamB()!.form; track $index) {
+            <span class="form-badge" [class]="'form-' + result">{{ result }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

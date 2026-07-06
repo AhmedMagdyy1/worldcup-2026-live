@@ -69,3 +69,35 @@ export interface StoryItem {
   title: string;
   time: string;
 }
+
+export interface BracketTeam {
+  code: string;
+  name: string;
+  flag: string;
+}
+
+export interface BracketMatch {
+  home: BracketTeam | null;
+  away: BracketTeam | null;
+  homeScore?: number;
+  awayScore?: number;
+  winnerCode?: string;
+  status?: 'scheduled' | 'live' | 'finished';
+  detail?: string;
+}
+
+export interface ScheduleFixture {
+  id: string;
+  home: Team;
+  away: Team;
+  group: string;
+  date: Date;
+  status: 'upcoming' | 'live' | 'finished';
+  homeScore?: number;
+  awayScore?: number;
+}
+
+export interface BracketRound {
+  name: string;
+  matches: BracketMatch[];
+}

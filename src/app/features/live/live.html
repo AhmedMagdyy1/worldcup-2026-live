@@ -24,7 +24,7 @@
       <div class="tmeta">Group {{ match().home.group }} • Rank #{{ match().home.rank }}</div>
     </div>
 
-    <div class="score">
+    <div class="score" [class.pulse]="scoreFlash()">
       <span>{{ match().homeScore }}</span>
       <span class="colon">:</span>
       <span>{{ match().awayScore }}</span>
@@ -41,6 +41,8 @@
       <span>Stadium: {{ match().stadium }}</span>
       <span class="divider">|</span>
       <span>Crowd: {{ match().crowd | number }}</span>
+      <span class="divider">|</span>
+      <a class="details-link" [routerLink]="['/match', match().id]">View Details →</a>
     </div>
   </section>
 

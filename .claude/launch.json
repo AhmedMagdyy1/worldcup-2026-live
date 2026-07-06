@@ -2,7 +2,8 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "worldcup-dev",
+      "name": "worldcup-2026-live",
+      "cwd": "/Users/ahmedmagdy/Documents/Work/Prog/worldcup-2026-live",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["ng", "serve", "--port", "4300"],
       "port": 4300

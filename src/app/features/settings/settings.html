@@ -8,6 +8,26 @@
     <div class="row"><span>Display Name</span><strong>Pro Analyst</strong></div>
     <div class="row"><span>Tier</span><strong class="green">Premium</strong></div>
     <div class="row"><span>Notifications</span><strong>Enabled</strong></div>
-    <div class="row"><span>Theme</span><strong>Dark</strong></div>
+    <div class="row theme-row">
+      <span>Theme</span>
+      <label class="toggle-switch" [attr.aria-label]="'Switch to ' + (theme() === 'dark' ? 'light' : 'dark') + ' theme'">
+        <span class="theme-label">
+          @if (theme() === 'dark') {
+            🌙 Dark
+          } @else {
+            ☀️ Light
+          }
+        </span>
+        <button
+          class="toggle-btn"
+          [class.active]="theme() === 'light'"
+          (click)="toggleTheme()"
+          type="button"
+          [attr.aria-pressed]="theme() === 'light'"
+        >
+          <span class="toggle-knob"></span>
+        </button>
+      </label>
+    </div>
   </section>
 </div>

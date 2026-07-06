@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": ["/favicon.ico", "/index.html", "/manifest.webmanifest", "/*.css", "/*.js"]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": ["/assets/**", "/*.(svg|cur|jpg|jpeg|png|webp|gif|otf|ttf|woff|woff2|ani|eot)"]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "espn-api",
+      "urls": ["https://site.api.espn.com/**", "https://site2.api.espn.com/**"],
+      "cacheConfig": { "maxSize": 10, "maxAge": "2m", "strategy": "freshness" }
+    }
+  ]
+}

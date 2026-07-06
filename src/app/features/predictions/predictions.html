@@ -1,21 +1,59 @@
 <div class="page">
   <header class="page-head">
-    <h1>Predictions</h1>
-    <p class="sub">Analyst consensus for {{ match().home.name }} vs {{ match().away.name }}</p>
+    <h1>Round of 16 Bracket Picks</h1>
+    <span class="score-badge">{{ score() }} / {{ totalResolved() }} correct</span>
   </header>
 
-  <section class="winprob-card">
-    @for (row of [
-      { label: match().home.name, value: match().winProb[0], color: 'var(--green)' },
-      { label: 'Draw', value: match().winProb[1], color: '#fff' },
-      { label: match().away.name, value: match().winProb[2], color: 'var(--red)' }
-    ]; track row.label) {
-      <div class="prob-row">
-        <span>{{ row.label }}</span>
-        <div class="bar"><span [style.width.%]="row.value" [style.background]="row.color"></span></div>
-        <span>{{ row.value }}%</span>
+  <div class="matches">
+    @for (match of r16Matches(); track match.home?.code) {
+      @let mid = matchId(match);
+      @let picked = getPick(mid);
+      <div class="match-row">
+        <div class="teams">
+          <button
+            class="pick-btn"
+            [class.selected]="picked === match.home?.code"
+            [class.correct]="match.winnerCode && picked === match.home?.code && picked === match.winnerCode"
+            [class.wrong]="match.winnerCode && picked === match.home?.code && picked !== match.winnerCode"
+            (click)="match.home && setPick(mid, match.home.code)"
+          >
+            <span class="flag">{{ match.home?.flag }}</span>
+            <span class="name">{{ match.home?.name }}</span>
+          </button>
+
+          <span class="vs">vs</span>
+
+          <button
+            class="pick-btn"
+            [class.selected]="picked === match.away?.code"
+            [class.correct]="match.winnerCode && picked === match.away?.code && picked === match.winnerCode"
+            [class.wrong]="match.winnerCode && picked === match.away?.code && picked !== match.winnerCode"
+            (click)="match.away && setPick(mid, match.away.code)"
+          >
+            <span class="flag">{{ match.away?.flag }}</span>
+            <span class="name">{{ match.away?.name }}</span>
+          </button>
+        </div>
+
+        <div class="status">
+          @if (!picked) {
+            <span class="status-icon pending">⏳</span>
+          } @else if (!match.winnerCode) {
+            <span class="status-icon wait">⏳</span>
+          } @else if (picked === match.winnerCode) {
+            <span class="status-icon correct">✅</span>
+          } @else {
+            <span class="status-icon wrong">❌</span>
+          }
+        </div>
       </div>
     }
-    <button class="btn full">Place Prediction</button>
-  </section>
+  </div>
+
+  <footer class="summary">
+    Your Score: <strong>{{ score() }} / {{ totalResolved() }}</strong> correct
+    @if (pending() > 0) {
+      · <span class="pending-count">{{ pending() }} awaiting result</span>
+    }
+  </footer>
 </div>

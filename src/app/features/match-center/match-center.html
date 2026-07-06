@@ -1,0 +1,125 @@
+@if (match(); as m) {
+  <div class="page">
+    <header class="match-header">
+      <a class="back-link" routerLink="/live">← Back</a>
+
+      <div class="scoreboard">
+        <div class="team home">
+          <span class="flag">{{ m.home.flag }}</span>
+          <span class="name">{{ m.home.name }}</span>
+          <span class="code">{{ m.home.code }}</span>
+        </div>
+
+        <div class="score-block">
+          <div class="score">
+            <span>{{ m.homeScore }}</span>
+            <span class="sep">:</span>
+            <span>{{ m.awayScore }}</span>
+          </div>
+          <div class="match-meta">
+            @if (m.status === 'live') {
+              <span class="live-pill">LIVE · {{ m.minute }}'</span>
+            } @else if (m.status === 'finished') {
+              <span class="status-pill finished">FT</span>
+            } @else {
+              <span class="status-pill upcoming">{{ m.kickoff }}</span>
+            }
+            <span class="meta-info">{{ m.group }} · {{ m.stadium }}</span>
+          </div>
+        </div>
+
+        <div class="team away">
+          <span class="flag">{{ m.away.flag }}</span>
+          <span class="name">{{ m.away.name }}</span>
+          <span class="code">{{ m.away.code }}</span>
+        </div>
+      </div>
+
+      <nav class="tabs">
+        <button [class.active]="tab() === 'timeline'" (click)="setTab('timeline')">Timeline</button>
+        <button [class.active]="tab() === 'lineups'" (click)="setTab('lineups')">Lineups</button>
+        <button [class.active]="tab() === 'stats'" (click)="setTab('stats')">Stats</button>
+      </nav>
+    </header>
+
+    <div class="tab-content">
+      @if (tab() === 'timeline') {
+        <section class="timeline-panel">
+          @if (m.timeline.length === 0) {
+            <p class="empty">No events yet.</p>
+          } @else {
+            <ul class="timeline-list">
+              @for (ev of m.timeline; track $index) {
+                <li class="event" [class]="'event--' + ev.team">
+                  <span class="minute">{{ ev.minute }}</span>
+                  <span class="icon">{{ eventIcon(ev.type) }}</span>
+                  <div class="ev-body">
+                    <span class="ev-type" [class]="'type--' + ev.type">{{ ev.type.toUpperCase() }}</span>
+                    <div class="ev-title">{{ ev.title }}</div>
+                    @if (ev.detail) {
+                      <div class="ev-detail">{{ ev.detail }}</div>
+                    }
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+      }
+
+      @if (tab() === 'lineups') {
+        <section class="lineups-panel">
+          <div class="lineups-grid">
+            <div class="lineup-col">
+              <h3>{{ m.home.flag }} {{ m.home.name }}</h3>
+              <ul>
+                @for (p of data.getSquad(m.home.code); track p.number) {
+                  <li class="player-row">
+                    <span class="jersey">{{ p.number }}</span>
+                    <span class="pos-badge" [class]="'pos--' + p.position">{{ p.position }}</span>
+                    <span class="pname">{{ p.name }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="lineup-col">
+              <h3>{{ m.away.flag }} {{ m.away.name }}</h3>
+              <ul>
+                @for (p of data.getSquad(m.away.code); track p.number) {
+                  <li class="player-row">
+                    <span class="jersey">{{ p.number }}</span>
+                    <span class="pos-badge" [class]="'pos--' + p.position">{{ p.position }}</span>
+                    <span class="pname">{{ p.name }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </section>
+      }
+
+      @if (tab() === 'stats') {
+        <section class="stats-panel">
+          @for (stat of statEntries(m); track stat.key) {
+            <div class="stat-row">
+              <div class="stat-values">
+                <span class="home-val">{{ stat.home }}</span>
+                <span class="stat-label">{{ stat.label }}</span>
+                <span class="away-val">{{ stat.away }}</span>
+              </div>
+              <div class="stat-bar">
+                <div class="bar-home" [style.width.%]="stat.homePct"></div>
+                <div class="bar-away" [style.width.%]="100 - stat.homePct"></div>
+              </div>
+            </div>
+          }
+        </section>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="not-found">
+    <p>Match not found.</p>
+    <a routerLink="/live">← Back to Live</a>
+  </div>
+}

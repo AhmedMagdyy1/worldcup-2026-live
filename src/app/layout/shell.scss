@@ -13,10 +13,10 @@
 }
 
 .brand {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-weight: 700;
   font-style: italic;
-  color: var(--yellow);
+  color: var(--tertiary);
   font-size: 1.15rem;
   white-space: nowrap;
 }
@@ -24,12 +24,12 @@
 .topnav {
   display: flex;
   gap: 24px;
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 0.9rem;
   color: var(--text-dim);
 
   a { padding-bottom: 4px; border-bottom: 2px solid transparent; }
-  a.active { color: var(--yellow); border-color: var(--yellow); }
+  a.active { color: var(--tertiary); border-color: var(--tertiary); }
 }
 
 .topbar-actions {
@@ -43,19 +43,26 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--panel);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-pill);
   padding: 7px 12px;
-  color: var(--text-dimmer);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: border-color 0.15s;
 
-  input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text);
-    font-size: 0.85rem;
-    width: 160px;
+  &:hover { border-color: var(--primary); color: var(--text); }
+
+  .search-hint { flex: 1; text-align: left; min-width: 100px; }
+
+  kbd {
+    font-size: 0.72rem;
+    background: var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
   }
 }
 
@@ -84,8 +91,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--panel);
-  border: 1px solid var(--green-dim);
+  background: var(--surface);
+  border: 1px solid var(--primary-dim);
   border-radius: var(--radius);
   padding: 10px 12px;
   margin-bottom: 24px;
@@ -93,14 +100,14 @@
   .avatar {
     width: 38px;
     height: 38px;
-    border-radius: 8px;
-    background: var(--panel-2);
+    border-radius: var(--radius-pill);
+    background: var(--surface-2);
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .name { font-weight: 700; font-size: 0.95rem; }
-  .tier { font-size: 0.72rem; color: var(--text-dim); font-family: var(--mono); }
+  .tier { font-size: 0.72rem; color: var(--text-dim); font-family: var(--font-mono); }
 }
 
 .side-nav {
@@ -113,7 +120,7 @@
     align-items: center;
     gap: 12px;
     padding: 10px 12px;
-    border-radius: 8px;
+    border-radius: var(--radius-pill);
     color: var(--text-dim);
     font-size: 0.92rem;
     font-weight: 500;
@@ -121,11 +128,11 @@
     .icon { width: 18px; text-align: center; }
 
     &.active {
-      background: var(--green-dim);
-      color: var(--green);
+      background: var(--primary-dim);
+      color: var(--primary);
     }
 
-    &:hover:not(.active) { background: var(--panel); }
+    &:hover:not(.active) { background: var(--surface); }
   }
 }
 
@@ -137,11 +144,11 @@
   padding-top: 16px;
 
   .upgrade {
-    background: var(--yellow);
+    background: var(--tertiary);
     color: #1a1500;
     font-weight: 700;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-pill);
     padding: 12px;
     font-size: 0.88rem;
   }
@@ -156,6 +163,10 @@
   flex: 1;
   min-width: 0;
   padding: 24px 28px;
+}
+
+.page {
+  animation: fadeIn 0.2s ease;
 }
 
 .bottom-nav { display: none; }
@@ -185,12 +196,12 @@
       gap: 4px;
       padding: 10px 0 14px;
       color: var(--text-dimmer);
-      font-size: 0.65rem;
-      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-family: var(--font-mono);
       letter-spacing: 0.03em;
 
       .icon { font-size: 1.1rem; }
-      &.active { color: var(--yellow); }
+      &.active { color: var(--tertiary); }
     }
   }
 }

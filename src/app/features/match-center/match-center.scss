@@ -1,0 +1,371 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.match-header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+
+  .flag {
+    font-size: 2.5rem;
+  }
+
+  .name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+    text-align: center;
+  }
+
+  .code {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  &.away {
+    align-items: center;
+  }
+}
+
+.score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.score {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1;
+
+  .sep {
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+}
+
+.match-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.live-pill {
+  background: var(--red, #e74c3c);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.status-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+
+  &.finished {
+    background: var(--border);
+    color: var(--text-muted);
+  }
+
+  &.upcoming {
+    background: var(--primary);
+    color: #fff;
+  }
+}
+
+.meta-info {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+
+  button {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+
+    &:hover {
+      color: var(--text);
+    }
+
+    &.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+  }
+}
+
+.tab-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+// Timeline
+.timeline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.event {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+
+  .minute {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 2.5rem;
+    padding-top: 0.1rem;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+    min-width: 1.5rem;
+  }
+
+  .ev-body {
+    flex: 1;
+  }
+
+  .ev-type {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-pill);
+    background: var(--border);
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+    display: inline-block;
+
+    &.type--goal {
+      background: rgba(46, 204, 113, 0.2);
+      color: #2ecc71;
+    }
+
+    &.type--card {
+      background: rgba(231, 76, 60, 0.2);
+      color: #e74c3c;
+    }
+
+    &.type--sub {
+      background: rgba(52, 152, 219, 0.2);
+      color: #3498db;
+    }
+  }
+
+  .ev-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .ev-detail {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.1rem;
+  }
+}
+
+.empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+// Lineups
+.lineups-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lineup-col {
+  h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .jersey {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 1.5rem;
+    text-align: right;
+  }
+
+  .pos-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.35rem;
+    border-radius: var(--radius-pill);
+    background: var(--border);
+    color: var(--text-muted);
+
+    &.pos--GK { background: rgba(243, 156, 18, 0.2); color: #f39c12; }
+    &.pos--DEF { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+    &.pos--MID { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+    &.pos--FWD { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+  }
+
+  .pname {
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+}
+
+// Stats
+.stats-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stat-row {
+  .stat-values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+
+    .home-val, .away-val {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      min-width: 2rem;
+    }
+
+    .away-val {
+      text-align: right;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      flex: 1;
+    }
+  }
+
+  .stat-bar {
+    display: flex;
+    height: 6px;
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    background: var(--border);
+
+    .bar-home {
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .bar-away {
+      background: var(--tertiary, #e74c3c);
+      transition: width 0.3s ease;
+    }
+  }
+}
+
+// Not found
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+}

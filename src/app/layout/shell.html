@@ -8,10 +8,11 @@
   </nav>
 
   <div class="topbar-actions">
-    <div class="search">
-      <span>⌕</span>
-      <input type="text" placeholder="Search data…" />
-    </div>
+    <button class="search" (click)="showSearch.set(true)" aria-label="Search teams (Cmd+K)">
+      <span class="search-icon">⌕</span>
+      <span class="search-hint">Search teams…</span>
+      <kbd>⌘K</kbd>
+    </button>
     <button class="icon-btn" aria-label="notifications">🔔</button>
     <button class="icon-btn" aria-label="profile">◉</button>
   </div>
@@ -46,6 +47,10 @@
     <router-outlet />
   </main>
 </div>
+
+@if (showSearch()) {
+  <app-search-palette (close)="showSearch.set(false)" />
+}
 
 <nav class="bottom-nav">
   @for (item of bottomNav; track item.path) {

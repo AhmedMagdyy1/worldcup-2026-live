@@ -9,13 +9,13 @@
 }
 
 .team-tile {
-  background: var(--panel);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px;
   text-align: center;
   transition: border-color 0.15s;
-  &:hover { border-color: var(--green); }
+  &:hover { border-color: var(--primary); }
   .flag { font-size: 2.2rem; display: block; margin-bottom: 8px; }
   .name { font-weight: 700; }
   .meta { color: var(--text-dim); font-size: 0.78rem; margin-top: 2px; }
@@ -23,8 +23,8 @@
     span {
       width: 18px; height: 18px; border-radius: 50%; font-size: 0.62rem;
       display: flex; align-items: center; justify-content: center; font-weight: 700;
-      &.W { background: var(--green-dim); color: var(--green); }
-      &.D { background: #3a3415; color: var(--yellow); }
+      &.W { background: var(--primary-dim); color: var(--primary); }
+      &.D { background: #3a3415; color: var(--tertiary); }
       &.L { background: #401b1f; color: var(--red); }
     }
   }

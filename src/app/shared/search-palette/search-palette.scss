@@ -1,0 +1,125 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+.palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.palette-modal {
+  position: relative;
+  z-index: 1;
+  width: min(560px, 92vw);
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.palette-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+
+  .search-icon {
+    font-size: 1.2rem;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+}
+
+.palette-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text, #fff);
+  font-size: 1rem;
+  font-family: inherit;
+
+  &::placeholder {
+    color: var(--muted, rgba(255, 255, 255, 0.35));
+  }
+}
+
+.palette-results {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 6px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--border, rgba(255, 255, 255, 0.15));
+    border-radius: 2px;
+  }
+}
+
+.palette-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted, rgba(255, 255, 255, 0.4));
+  font-size: 0.9rem;
+}
+
+.result-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--text, #fff);
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+
+  &:hover,
+  &.active {
+    background: var(--primary, rgba(99, 102, 241, 0.25));
+  }
+
+  .team-flag {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+
+  .team-name {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .team-code {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    font-family: monospace;
+    text-transform: uppercase;
+  }
+
+  .group-badge {
+    font-size: 0.7rem;
+    padding: 2px 7px;
+    border-radius: 99px;
+    background: var(--accent, rgba(99, 102, 241, 0.3));
+    color: var(--text, #fff);
+    white-space: nowrap;
+  }
+}

@@ -1,31 +1,46 @@
 <div class="page">
   <header class="page-head">
     <h1>Schedule</h1>
-    <p class="sub">Upcoming and completed fixtures.</p>
+    <p class="sub">All 144 group-stage fixtures · World Cup 2026</p>
   </header>
 
-  <section class="block">
-    <h3>Upcoming Today</h3>
-    @for (m of upcoming; track m.id) {
-      <div class="fixture">
-        <span class="time">{{ m.kickoff }}</span>
-        <span>{{ m.home.flag }} {{ m.home.name }}</span>
-        <span class="vs">vs</span>
-        <span>{{ m.away.name }} {{ m.away.flag }}</span>
-        <span class="stadium">{{ m.stadium }}</span>
-      </div>
-    }
-  </section>
+  <div class="filters">
+    <div class="filter-row">
+      <button class="chip" [class.active]="groupFilter() === 'all'" (click)="setGroup('all')">All Groups</button>
+      @for (g of groups; track g) {
+        <button class="chip" [class.active]="groupFilter() === g" (click)="setGroup(g)">Group {{ g }}</button>
+      }
+    </div>
+    <div class="filter-row">
+      <button class="chip" [class.active]="statusFilter() === 'all'" (click)="setStatus('all')">All</button>
+      <button class="chip chip--upcoming" [class.active]="statusFilter() === 'upcoming'" (click)="setStatus('upcoming')">Upcoming</button>
+      <button class="chip chip--live" [class.active]="statusFilter() === 'live'" (click)="setStatus('live')">Live</button>
+      <button class="chip chip--finished" [class.active]="statusFilter() === 'finished'" (click)="setStatus('finished')">Finished</button>
+    </div>
+  </div>
 
-  <section class="block">
-    <h3>Completed</h3>
-    @for (m of completed; track m.id) {
-      <div class="fixture">
-        <span class="time">FT</span>
-        <span>{{ m.home.flag }} {{ m.home.name }}</span>
-        <span class="score">{{ m.homeScore }} - {{ m.awayScore }}</span>
-        <span>{{ m.away.name }} {{ m.away.flag }}</span>
-      </div>
-    }
-  </section>
+  @if (fixturesByDate().length === 0) {
+    <p class="empty">No fixtures match the selected filters.</p>
+  }
+
+  @for (group of fixturesByDate(); track group.label) {
+    <section class="date-section">
+      <h2 class="date-label">{{ group.label }}</h2>
+      @for (f of group.fixtures; track f.id) {
+        <div class="fixture" [class.fixture--live]="f.status === 'live'" [class.fixture--finished]="f.status === 'finished'">
+          <span class="badge" [class.badge--live]="f.status === 'live'" [class.badge--finished]="f.status === 'finished'" [class.badge--upcoming]="f.status === 'upcoming'">{{ statusLabel(f.status) }}</span>
+          <span class="group-tag">Grp {{ f.group }}</span>
+          <div class="teams">
+            <span class="team home">{{ f.home.flag }} {{ f.home.name }}</span>
+            @if (f.status === 'finished' || f.status === 'live') {
+              <span class="score">{{ f.homeScore }} – {{ f.awayScore }}</span>
+            } @else {
+              <span class="vs">vs</span>
+            }
+            <span class="team away">{{ f.away.name }} {{ f.away.flag }}</span>
+          </div>
+        </div>
+      }
+    </section>
+  }
 </div>

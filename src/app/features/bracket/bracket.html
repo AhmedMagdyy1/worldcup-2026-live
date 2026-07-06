@@ -1,0 +1,131 @@
+<div class="page">
+
+  <!-- Desktop: full bracket tree graph -->
+  <div class="desktop-bracket">
+    <header class="page-head">
+      <h1>Knockout Bracket</h1>
+      <p class="sub">Round of 32 through the Final</p>
+    </header>
+
+    <div class="bracket-scroll">
+      <div class="label-row" [style.width.px]="treeWidth">
+        @for (round of mainRounds; track round.name; let ri = $index) {
+          <div class="round-label-cell"
+               [style.left.px]="colX(ri)"
+               [style.width.px]="CW">{{ round.name }}</div>
+        }
+      </div>
+
+      <div class="bracket-tree" [style.width.px]="treeWidth" [style.height.px]="BH">
+
+        <svg class="connector-svg"
+             [attr.width]="treeWidth"
+             [attr.height]="BH"
+             xmlns="http://www.w3.org/2000/svg">
+          @for (line of svgLines; track $index) {
+            <line [attr.x1]="line.x1" [attr.y1]="line.y1"
+                  [attr.x2]="line.x2" [attr.y2]="line.y2" />
+          }
+        </svg>
+
+        @for (round of mainRounds; track round.name; let ri = $index) {
+          @for (match of round.matches; track $index; let mi = $index) {
+            <div class="match-node"
+                 [class.is-final]="round.name === 'Final'"
+                 [style.left.px]="colX(ri)"
+                 [style.top.px]="matchY(ri, mi) - MH / 2"
+                 [style.width.px]="CW"
+                 [style.height.px]="MH">
+              <div class="node-side"
+                   [class.win]="isWinner(match, 'home')"
+                   [class.out]="isEliminated(match, 'home')">
+                <span class="nflag">{{ match.home?.flag ?? '🏳️' }}</span>
+                <span class="ncode">{{ match.home?.code ?? 'TBD' }}</span>
+                <span class="nscore">{{ match.homeScore ?? '' }}</span>
+              </div>
+              <div class="node-divider">
+                @if (match.detail) { <span class="ndtl">{{ match.detail }}</span> }
+              </div>
+              <div class="node-side"
+                   [class.win]="isWinner(match, 'away')"
+                   [class.out]="isEliminated(match, 'away')">
+                <span class="nflag">{{ match.away?.flag ?? '🏳️' }}</span>
+                <span class="ncode">{{ match.away?.code ?? 'TBD' }}</span>
+                <span class="nscore">{{ match.awayScore ?? '' }}</span>
+              </div>
+            </div>
+          }
+        }
+      </div>
+
+      @if (thirdPlace && thirdPlace.matches[0]; as m) {
+        <div class="third-row" [style.width.px]="treeWidth">
+          <span class="third-label">3rd Place</span>
+          <span class="nflag">{{ m.home?.flag }}</span>
+          <span class="tcode" [class.win]="isWinner(m, 'home')">{{ m.home?.code ?? 'TBD' }}</span>
+          <span class="tvs">vs</span>
+          <span class="nflag">{{ m.away?.flag }}</span>
+          <span class="tcode" [class.win]="isWinner(m, 'away')">{{ m.away?.code ?? 'TBD' }}</span>
+          @if (m.winnerCode) { <span class="tbadge">🥉 {{ m.winnerCode }}</span> }
+        </div>
+      }
+
+      @if (champion) {
+        <div class="champion-row" [style.width.px]="treeWidth">
+          🏆 World Cup 2026 Champion: <strong>{{ champion }}</strong>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Mobile: tabs + cards -->
+  <div class="mobile-bracket">
+    <header class="mobile-head"><h1>Bracket</h1></header>
+
+    <nav class="round-tabs">
+      @for (round of rounds; track round.name; let i = $index) {
+        <button [class.active]="selectedRoundIndex() === i" (click)="selectRound(i)">
+          {{ round.name }}
+        </button>
+      }
+    </nav>
+
+    @if (rounds[selectedRoundIndex()]; as round) {
+      <section class="stage-cards">
+        <div class="round-header">
+          <span class="round-title">{{ round.name | uppercase }}</span>
+          <span class="round-count">{{ round.matches.length }} match{{ round.matches.length === 1 ? '' : 'es' }}</span>
+        </div>
+        <div class="cards-grid">
+          @for (match of round.matches; track $index) {
+            <div class="card-match" [class.final-card]="round.name === 'Final'">
+              <div class="side" [class.win]="isWinner(match, 'home')" [class.out]="isEliminated(match, 'home')">
+                <span class="flag">{{ match.home?.flag ?? '—' }}</span>
+                <span class="team-info">
+                  <span class="code">{{ match.home?.code ?? 'TBD' }}</span>
+                  <span class="name">{{ match.home?.name ?? 'To be determined' }}</span>
+                </span>
+                <span class="score">{{ match.homeScore ?? '' }}</span>
+                @if (isWinner(match, 'home')) { <span class="badge-win">✓</span> }
+              </div>
+              <div class="divider">
+                @if (match.detail) { <span class="detail-badge">{{ match.detail }}</span> }
+                @else if (!match.winnerCode) { <span class="vs">VS</span> }
+              </div>
+              <div class="side" [class.win]="isWinner(match, 'away')" [class.out]="isEliminated(match, 'away')">
+                <span class="flag">{{ match.away?.flag ?? '—' }}</span>
+                <span class="team-info">
+                  <span class="code">{{ match.away?.code ?? 'TBD' }}</span>
+                  <span class="name">{{ match.away?.name ?? 'To be determined' }}</span>
+                </span>
+                <span class="score">{{ match.awayScore ?? '' }}</span>
+                @if (isWinner(match, 'away')) { <span class="badge-win">✓</span> }
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    }
+  </div>
+
+</div>

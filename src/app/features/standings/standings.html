@@ -2,12 +2,13 @@
   <header class="page-head desktop-only">
     <div>
       <h1>Group Stage Standings</h1>
-      <p class="sub">Real-time data stream for all tournament groups A-H.</p>
+      <p class="sub">Real-time data stream for all tournament groups A-L.</p>
     </div>
     <div class="head-actions">
       <button class="chip" [class.active]="filter() === 'all'" (click)="filter.set('all')">All Groups</button>
       <button class="chip" [class.active]="filter() === 'ad'" (click)="filter.set('ad')">A - D</button>
       <button class="chip" [class.active]="filter() === 'eh'" (click)="filter.set('eh')">E - H</button>
+      <button class="chip" [class.active]="filter() === 'il'" (click)="filter.set('il')">I - L</button>
       <button class="btn">⏳ Filter</button>
     </div>
   </header>
