@@ -140,14 +140,14 @@
         <h3>Win Probability</h3>
         <p class="sub">Analyst consensus</p>
         @for (row of [
-          { label: match().home.name, value: match().winProb[0], color: 'var(--green)' },
-          { label: 'Draw', value: match().winProb[1], color: '#fff' },
+          { label: match().home.name, value: match().winProb[0], color: 'var(--primary)' },
+          { label: 'Draw', value: match().winProb[1], color: 'var(--text-dim)' },
           { label: match().away.name, value: match().winProb[2], color: 'var(--red)' }
         ]; track row.label) {
           <div class="prob-row">
-            <span>{{ row.label }}</span>
+            <span class="prob-label">{{ row.label }}</span>
             <div class="bar"><span [style.width.%]="row.value" [style.background]="row.color"></span></div>
-            <span>{{ row.value }}%</span>
+            <span class="prob-pct">{{ row.value }}%</span>
           </div>
         }
       </section>

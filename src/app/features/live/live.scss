@@ -223,6 +223,54 @@
   small { display: block; margin-top: 6px; color: var(--primary); font-family: var(--font-mono); text-align: right; }
 }
 
+.winprob-card {
+  h3 { margin: 0 0 2px; font-size: 1rem; }
+  .sub { color: var(--text-dim); font-size: 0.8rem; margin: 0 0 16px; }
+
+  .prob-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    &:last-child { margin-bottom: 0; }
+
+    .prob-label {
+      width: 72px;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bar {
+      flex: 1;
+      height: 7px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+
+      span {
+        display: block;
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.6s ease;
+      }
+    }
+
+    .prob-pct {
+      width: 34px;
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+  }
+}
+
 .fixture { padding: 10px 0; border-top: 1px solid var(--border); &:first-of-type { border-top: none; } }
 .fixture-time { font-family: var(--font-mono); color: var(--tertiary); font-size: 0.85rem; margin-bottom: 6px; small { color: var(--text-dim); margin-left: 8px; } }
 .fixture-teams { display: flex; justify-content: space-between; font-size: 0.85rem; .vs { color: var(--text-dim); } }
